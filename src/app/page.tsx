@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { prisma } from '@/lib/db';
+import { Prisma } from '@prisma/client';
 import { EventCard } from '@/components/EventCard';
 import { Search } from 'lucide-react';
 import { searchSchema } from '@/lib/validation';
@@ -24,7 +25,7 @@ export default async function HomePage({ searchParams }: PageProps) {
   const now = new Date();
 
   // Filter: ONLY UPCOMING and ONLY PUBLIC
-  const whereClause: Parameters<typeof prisma.event.findMany>[0]['where'] = {
+  const whereClause: Prisma.EventWhereInput = {
     visibility: 'PUBLIC',
     startsAt: {
       gt: now,
